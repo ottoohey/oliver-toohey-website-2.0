@@ -1,8 +1,13 @@
 import "./App.css";
 import { useSpring, animated, easings } from "@react-spring/web";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { transition } from "./features/opacity/opacitySlice.js";
 
 function App() {
+  const opacityArray = useSelector((state) => state.opacity.value);
+  const dispatch = useDispatch();
+
   const breathingConfig = {
     duration: 7000,
     easing: easings.easeInOutSine,
@@ -36,9 +41,9 @@ function App() {
   const [spring5, api5] = useSpring(() => configureSpring(300));
   const [spring6, api6] = useSpring(() => configureSpring(100));
 
-  const [opaque, setOpacity] = useState(false);
+  // const [opaque, setOpacity] = useState(false);
 
-  const expand = (api) => {
+  const expand = (api, order) => {
     api.start({
       to: {
         height: "90vh",
@@ -46,10 +51,10 @@ function App() {
       },
       config: fastMoveConfig,
     });
-    setOpacity(true);
+    dispatch(transition(order));
   };
 
-  const retract = (api) => {
+  const retract = (api, order) => {
     api.start({
       to: {
         height: "20vh",
@@ -58,7 +63,7 @@ function App() {
       config: fastMoveConfig,
       onRest: () => restartAnimation(api),
     });
-    setOpacity(false);
+    dispatch(transition(order));
   };
 
   const restartAnimation = (api) => {
@@ -88,7 +93,7 @@ function App() {
           <div
             className="rounded-container content-center"
             style={{
-              width: "0%",
+              width: "0vh",
               height: "90vh",
             }}
           ></div>
@@ -99,8 +104,8 @@ function App() {
               transformOrigin: "center",
               ...spring1,
             }}
-            onMouseOver={() => expand(api1)}
-            onMouseLeave={() => retract(api1)}
+            onMouseOver={() => expand(api1, 0)}
+            onMouseLeave={() => retract(api1, 0)}
           ></animated.div>
           <animated.div
             className="square-container"
@@ -108,8 +113,8 @@ function App() {
               width: "30%",
               ...spring2,
             }}
-            onMouseOver={() => expand(api2)}
-            onMouseLeave={() => retract(api2)}
+            onMouseOver={() => expand(api2, 1)}
+            onMouseLeave={() => retract(api2, 1)}
           ></animated.div>
           <animated.div
             className="rounded-container"
@@ -117,8 +122,8 @@ function App() {
               width: "20%",
               ...spring3,
             }}
-            onMouseOver={() => expand(api3)}
-            onMouseLeave={() => retract(api3)}
+            onMouseOver={() => expand(api3, 2)}
+            onMouseLeave={() => retract(api3, 2)}
           ></animated.div>
           <animated.div
             className="square-container"
@@ -126,8 +131,8 @@ function App() {
               width: "20%",
               ...spring4,
             }}
-            onMouseOver={() => expand(api4)}
-            onMouseLeave={() => retract(api4)}
+            onMouseOver={() => expand(api4, 3)}
+            onMouseLeave={() => retract(api4, 3)}
           ></animated.div>
           <animated.div
             className="rounded-container"
@@ -135,8 +140,8 @@ function App() {
               width: "10%",
               ...spring5,
             }}
-            onMouseOver={() => expand(api5)}
-            onMouseLeave={() => retract(api5)}
+            onMouseOver={() => expand(api5, 4)}
+            onMouseLeave={() => retract(api5, 4)}
           ></animated.div>
           <animated.div
             className="square-container"
@@ -144,8 +149,8 @@ function App() {
               width: "10%",
               ...spring6,
             }}
-            onMouseOver={() => expand(api6)}
-            onMouseLeave={() => retract(api6)}
+            onMouseOver={() => expand(api6, 5)}
+            onMouseLeave={() => retract(api6, 5)}
           ></animated.div>
         </div>
         <div className="gradient-background-2 absolute mix-blend-multiply pointer-events-none"></div>
@@ -162,47 +167,56 @@ function App() {
         {/* <div class="grid grid-flow-col auto-cols-6 w-screen fixed top-24"> */}
         <div className="container flex flex-row space-x-2 w-screen fixed top-24">
           <p
-            className={opaque ? "text-opaque" : "text-clear"}
+            className={opacityArray[0] ? "text-opaque" : "text-clear"}
             style={{
               width: "10%",
+              justifyContent: "center",
             }}
           >
-            Test
+            Hello there, welcome to my website.
           </p>
           <p
+            className={opacityArray[1] ? "text-opaque" : "text-clear"}
             style={{
               width: "30%",
             }}
           >
-            Test
+            My name is Oliver Toohey and I'm a Software Developer based in
+            Melbourne, Australia. I mainly work with React and Flutter.
           </p>
           <p
+            className={opacityArray[2] ? "text-opaque" : "text-clear"}
             style={{
               width: "20%",
             }}
           >
-            Test
+            I also dabble in the AWS/Azure platforms, deploying infrastucture as
+            code using CDK.
           </p>
           <p
+            className={opacityArray[3] ? "text-opaque" : "text-clear"}
             style={{
               width: "20%",
             }}
           >
-            Test
+            Need something automated? I can do that with Ansible, at least until
+            ChatGPT takes over.
           </p>
           <p
+            className={opacityArray[4] ? "text-opaque" : "text-clear"}
             style={{
               width: "10%",
             }}
           >
-            Test
+            I love to travel and want to work overseas one day.
           </p>
           <p
+            className={opacityArray[5] ? "text-opaque" : "text-clear"}
             style={{
               width: "10%",
             }}
           >
-            Test
+            Nice to meet you :)
           </p>
         </div>
       </header>

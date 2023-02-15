@@ -62,9 +62,13 @@
 .text-clear {
   opacity: 0;
   transition: 500ms;
+  padding: 12pt;
+  font-weight: bold;
 }
 
 .text-opaque {
   opacity: 1;
-  transition: 500ms;
+  transition: 1000ms;
+  padding: 12pt;
+  font-weight: bold;
 }
