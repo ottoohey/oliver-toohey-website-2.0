@@ -1,11 +1,13 @@
 import "./App.css";
 import { useSpring, animated, easings } from "@react-spring/web";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { transition } from "./features/opacity/opacitySlice.js";
+import { position } from "./features/homescreenAnimation/homescreenAnimationSlice.js";
 
 function App() {
   const opacityArray = useSelector((state) => state.opacity.value);
+  const fixedPosition = useSelector((state) => state.fixedPosition.value);
   const dispatch = useDispatch();
 
   const breathingConfig = {
@@ -97,6 +99,30 @@ function App() {
       config: breathingConfig,
     });
   };
+
+  const titleRef = useRef();
+  function scrollDownToOverview() {
+    titleRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+
+  const handleScroll = () => {
+    const scrollPosition = window.pageYOffset;
+
+    const el = document.getElementById("topElement");
+    const elDistanceToTop = window.pageYOffset + el.getBoundingClientRect().top;
+
+    const relativePostition = elDistanceToTop - scrollPosition;
+
+    dispatch(position(relativePostition));
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="App">
@@ -199,13 +225,18 @@ function App() {
           ></div>
         </div>
         {/* <div className="gradient-background absolute mix-blend-multiply pointer-events-none"></div> */}
-        <button className="text-yellow-100 hover:font-bold hover:underline hover:decoration-green-200">
+        <button
+          className="text-yellow-100 hover:font-bold hover:underline hover:decoration-green-200"
+          onClick={scrollDownToOverview}
+        >
           descend into my world
         </button>
       </div>
-      <p className="fixed uppercase mx-auto inset-x-0 top-12 text-2xl text-yellow-100">
-        olivertoohey.com
-      </p>
+      <div className="fixed mx-auto inset-x-0 top-0 bg-zinc-800 h-24">
+        <p className="fixed uppercase mx-auto inset-x-0 top-12 text-2xl text-yellow-100">
+          olivertoohey.com
+        </p>
+      </div>
       <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[0] ? "text-opaque" : "text-clear"}>
           Hello there, welcome to my website.
@@ -237,6 +268,59 @@ function App() {
         <p className={opacityArray[5] ? "text-opaque" : "text-clear"}>
           Nice to meet you :)
         </p>
+      </div>
+      <div className="h-screen w-screen bg-zinc-800">
+        <div className="flex pt-32 bg-zinc-800">
+          <div className="w-1/2 flex justify-end p-16">
+            <div className="phone-screen fixed top-32 pointer-events-none"></div>
+            <div
+              className={
+                fixedPosition
+                  ? "phone-screen fixed top-32 pointer-events-none bg-green-300"
+                  : "phone-screen relative top-32 pointer-events-none bg-blue-300"
+              }
+            ></div>
+          </div>
+          <div className="flex-col w-1/3 pt-16">
+            <p
+              className="text-white text-start pt-64 p-4"
+              ref={titleRef}
+              id="topElement"
+            >
+              Need a mobile app developed?
+            </p>
+            <p className="text-white text-start p-4">
+              I might be able to help.
+            </p>
+            <p className="text-white text-start p-4">
+              Most of my experience is with Flutter, however React Native isn't
+              an issue either.
+            </p>
+            <p className="text-white text-start p-4">Check out my app here!</p>
+            <p className="text-white text-start pt-64 pl-4">
+              Need a mobile app developed?
+            </p>
+            <p className="text-white text-start p-4">
+              I might be able to help.
+            </p>
+            <p className="text-white text-start p-4">
+              Most of my experience is with Flutter, however React Native isn't
+              an issue either.
+            </p>
+            <p className="text-white text-start p-4">Check out my app here!</p>
+            <p className="text-white text-start pt-64 pl-4">
+              Need a mobile app developed?
+            </p>
+            <p className="text-white text-start p-4">
+              I might be able to help.
+            </p>
+            <p className="text-white text-start p-4">
+              Most of my experience is with Flutter, however React Native isn't
+              an issue either.
+            </p>
+            <p className="text-white text-start p-4">Check out my app here!</p>
+          </div>
+        </div>
       </div>
     </div>
   );

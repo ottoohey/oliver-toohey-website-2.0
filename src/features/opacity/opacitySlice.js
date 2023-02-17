@@ -13,14 +13,6 @@ export const opacitySlice = createSlice({
         state.value[action.payload] = true;
       }
     },
-    // transitionToOpaque: (state, action) => {
-    //   state.value[action.payload] = true;
-    //   console.log(state.value);
-    // },
-    // transitionToClear: (state, action) => {
-    //   state.value[action.payload] = false;
-    //   console.log(state.value);
-    // },
   },
 });
 
