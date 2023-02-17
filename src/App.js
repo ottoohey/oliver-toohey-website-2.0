@@ -3,7 +3,6 @@ import { useSpring, animated, easings } from "@react-spring/web";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { transition } from "./features/opacity/opacitySlice.js";
-import flutterIcon from "./icons/flutter.png";
 
 function App() {
   const opacityArray = useSelector((state) => state.opacity.value);
@@ -56,8 +55,6 @@ function App() {
   const [spring4, api4] = useSpring(() => configureSpring(3, 600));
   const [spring5, api5] = useSpring(() => configureSpring(4, 300));
   const [spring6, api6] = useSpring(() => configureSpring(5, 100));
-
-  // const [opaque, setOpacity] = useState(false);
 
   const expand = (api, order) => {
     api.start({
@@ -114,7 +111,11 @@ function App() {
             }}
           ></div>
           <animated.div
-            className="rounded-container"
+            className={
+              opacityArray[0]
+                ? "rounded-container bg-award bg-top border-2 border-green-200"
+                : "rounded-container"
+            }
             style={{
               width: "5%",
               transformOrigin: "center",
@@ -124,7 +125,11 @@ function App() {
             onMouseLeave={() => retract(api1, 0, "5%")}
           ></animated.div>
           <animated.div
-            className="square-container"
+            className={
+              opacityArray[1]
+                ? "square-container bg-dev bg-center border-2 border-green-200"
+                : "square-container"
+            }
             style={{
               width: "15%",
               ...spring2,
@@ -133,7 +138,11 @@ function App() {
             onMouseLeave={() => retract(api2, 1, "15%")}
           ></animated.div>
           <animated.div
-            className="rounded-container"
+            className={
+              opacityArray[2]
+                ? "rounded-container bg-cloud bg-right-bottom bg-cover border-2 border-green-200"
+                : "rounded-container"
+            }
             style={{
               width: "10%",
               ...spring3,
@@ -142,7 +151,11 @@ function App() {
             onMouseLeave={() => retract(api3, 2, "10%")}
           ></animated.div>
           <animated.div
-            className="square-container"
+            className={
+              opacityArray[3]
+                ? "square-container bg-open-ai bg-right bg-cover border-2 border-green-200"
+                : "square-container"
+            }
             style={{
               width: "10%",
               ...spring4,
@@ -151,7 +164,11 @@ function App() {
             onMouseLeave={() => retract(api4, 3, "10%")}
           ></animated.div>
           <animated.div
-            className="rounded-container"
+            className={
+              opacityArray[4]
+                ? "rounded-container bg-norway bg-center border-2 border-green-200"
+                : "rounded-container"
+            }
             style={{
               width: "5%",
               ...spring5,
@@ -160,7 +177,11 @@ function App() {
             onMouseLeave={() => retract(api5, 4, "5%")}
           ></animated.div>
           <animated.div
-            className="square-container"
+            className={
+              opacityArray[5]
+                ? "square-container bg-mona bg-center border-2 border-green-200"
+                : "square-container"
+            }
             style={{
               width: "5%",
               ...spring6,
@@ -178,40 +199,41 @@ function App() {
           ></div>
         </div>
         {/* <div className="gradient-background absolute mix-blend-multiply pointer-events-none"></div> */}
-        <button className="font-bold">descend into my world</button>
+        <button className="text-yellow-100 hover:font-bold hover:underline hover:decoration-green-200">
+          descend into my world
+        </button>
       </div>
-      <p className="fixed uppercase mx-auto inset-x-0 top-12 text-white">
+      <p className="fixed uppercase mx-auto inset-x-0 top-12 text-2xl text-yellow-100">
         olivertoohey.com
       </p>
-      <div className="fixed mx-auto inset-x-0 top-24">
+      <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[0] ? "text-opaque" : "text-clear"}>
           Hello there, welcome to my website.
         </p>
       </div>
-      <div className="fixed mx-auto inset-x-0 top-24">
+      <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[1] ? "text-opaque" : "text-clear"}>
           My name is Oliver Toohey and I'm a Software Developer based in
-          Melbourne, Australia. I mainly work with React and Flutter.
+          Melbourne, Australia. React vs Flutter - porque no los dos?
         </p>
       </div>
-      <div className="fixed mx-auto inset-x-0 top-24">
+      <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[2] ? "text-opaque" : "text-clear"}>
-          I also dabble in the AWS/Azure platforms, deploying infrastucture as
-          code using CDK.
+          My head gets stuck in the clouds sometimes, mainly AWS and Azure.
         </p>
       </div>
-      <div className="fixed mx-auto inset-x-0 top-24">
+      <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[3] ? "text-opaque" : "text-clear"}>
           Need something automated? I can do that with Ansible, at least until
           ChatGPT takes over.
         </p>
       </div>
-      <div className="fixed mx-auto inset-x-0 top-24">
+      <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[4] ? "text-opaque" : "text-clear"}>
           I love to travel and want to work overseas one day.
         </p>
       </div>
-      <div className="fixed mx-auto inset-x-0 top-24">
+      <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[5] ? "text-opaque" : "text-clear"}>
           Nice to meet you :)
         </p>

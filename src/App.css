@@ -30,21 +30,16 @@
 }
 
 .rounded-container {
-  background-color: white;
   border-radius: 100px;
-  height: 20vh;
-  min-height: 80px;
-}
-
-.rounded-container:hover {
-  height: 90vh;
+  background-color: #fef9c3;
+  min-height: 130px;
 }
 
 .square-container {
-  background-color: white;
   border-radius: 5px;
-  height: 20vh;
-  min-height: 80px;
+  background-color: #fef9c3;
+  border-color: #04ff4b;
+  min-height: 130px;
 }
 
 .text-clear {
