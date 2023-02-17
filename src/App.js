@@ -1,80 +1,100 @@
 import "./App.css";
 import { useSpring, animated, easings } from "@react-spring/web";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { transition } from "./features/opacity/opacitySlice.js";
+import flutterIcon from "./icons/flutter.png";
 
 function App() {
   const opacityArray = useSelector((state) => state.opacity.value);
   const dispatch = useDispatch();
 
   const breathingConfig = {
-    duration: 7000,
+    duration: 2000,
     easing: easings.easeInOutSine,
   };
 
   const fastMoveConfig = {
-    duration: 500,
+    duration: 200,
     easing: easings.easeInOutSine,
   };
 
+  const breathingHeightFromTo = ["20vh", "22vh"];
+  const breathingYFromTo = ["35vh", "34vh"]; // subtract from starting height half of height change difference
+
   // higher vh == down screen
-  function configureSpring(delay) {
+  function configureSpring(index, delay) {
+    let width = "0%";
+
+    if (index === 1) {
+      width = "15%";
+    } else if (index === 2 || index === 3) {
+      width = "10%";
+    } else {
+      width = "5%";
+    }
+
     return {
       from: {
-        height: "20vh",
-        y: "35vh",
+        height: breathingHeightFromTo[0],
+        width: width,
+        y: breathingYFromTo[0],
       },
       to: {
-        height: "30vh",
-        y: "30vh", // subtract from starting height half of height change difference
+        height: breathingHeightFromTo[1],
+        width: width,
+        y: breathingYFromTo[1],
       },
       loop: { reverse: true, delay: delay },
       config: breathingConfig,
     };
   }
 
-  const [spring1, api1] = useSpring(() => configureSpring(0));
-  const [spring2, api2] = useSpring(() => configureSpring(200));
-  const [spring3, api3] = useSpring(() => configureSpring(400));
-  const [spring4, api4] = useSpring(() => configureSpring(600));
-  const [spring5, api5] = useSpring(() => configureSpring(300));
-  const [spring6, api6] = useSpring(() => configureSpring(100));
+  const [spring1, api1] = useSpring(() => configureSpring(0, 0));
+  const [spring2, api2] = useSpring(() => configureSpring(1, 200));
+  const [spring3, api3] = useSpring(() => configureSpring(2, 400));
+  const [spring4, api4] = useSpring(() => configureSpring(3, 600));
+  const [spring5, api5] = useSpring(() => configureSpring(4, 300));
+  const [spring6, api6] = useSpring(() => configureSpring(5, 100));
 
   // const [opaque, setOpacity] = useState(false);
 
   const expand = (api, order) => {
     api.start({
       to: {
-        height: "90vh",
-        y: "0vh",
+        height: "35vh",
+        width: "20%",
+        y: "27vh",
       },
       config: fastMoveConfig,
     });
     dispatch(transition(order));
   };
 
-  const retract = (api, order) => {
+  const retract = (api, order, width) => {
     api.start({
       to: {
-        height: "20vh",
-        y: "35vh",
+        height: breathingHeightFromTo[1],
+        width: width,
+        y: breathingYFromTo[1],
       },
       config: fastMoveConfig,
-      onRest: () => restartAnimation(api),
+      onRest: () => restartAnimation(api, width),
     });
     dispatch(transition(order));
   };
 
-  const restartAnimation = (api) => {
+  const restartAnimation = (api, width) => {
     api.start({
       from: {
-        height: "20vh",
-        y: "35vh",
+        height: breathingHeightFromTo[1],
+        width: width,
+        y: breathingYFromTo[1],
       },
       to: {
-        height: "30vh",
-        y: "30vh", // subtract from starting height half of height change difference
+        height: breathingHeightFromTo[0],
+        width: width,
+        y: breathingYFromTo[0], // subtract from starting height half of height change difference
       },
       loop: { reverse: true },
       config: breathingConfig,
@@ -83,143 +103,119 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header relative">
-        <div className="p-6 md:p-9 lg:p-12 pointer-events-none absolute">
-          <p className="text-2xl sm:text-4xl lg:text-6xl xl:text-8xl font-display text-white">
-            OLIVERTOOHEY.COM
-          </p>
-        </div>
-        <div className="container flex flex-row space-x-2 w-screen content-center absolute">
+      <div className="App-header relative">
+        <div className="flex flex-row space-x-2 w-screen content-center">
           <div
-            className="rounded-container content-center"
+            className="rounded-container"
             style={{
-              width: "0vh",
+              width: "25%",
               height: "90vh",
+              opacity: 0,
             }}
           ></div>
           <animated.div
             className="rounded-container"
             style={{
-              width: "10%",
+              width: "5%",
               transformOrigin: "center",
               ...spring1,
             }}
             onMouseOver={() => expand(api1, 0)}
-            onMouseLeave={() => retract(api1, 0)}
+            onMouseLeave={() => retract(api1, 0, "5%")}
           ></animated.div>
           <animated.div
             className="square-container"
             style={{
-              width: "30%",
+              width: "15%",
               ...spring2,
             }}
             onMouseOver={() => expand(api2, 1)}
-            onMouseLeave={() => retract(api2, 1)}
+            onMouseLeave={() => retract(api2, 1, "15%")}
           ></animated.div>
           <animated.div
             className="rounded-container"
             style={{
-              width: "20%",
+              width: "10%",
               ...spring3,
             }}
             onMouseOver={() => expand(api3, 2)}
-            onMouseLeave={() => retract(api3, 2)}
+            onMouseLeave={() => retract(api3, 2, "10%")}
           ></animated.div>
           <animated.div
             className="square-container"
             style={{
-              width: "20%",
+              width: "10%",
               ...spring4,
             }}
             onMouseOver={() => expand(api4, 3)}
-            onMouseLeave={() => retract(api4, 3)}
+            onMouseLeave={() => retract(api4, 3, "10%")}
           ></animated.div>
           <animated.div
             className="rounded-container"
             style={{
-              width: "10%",
+              width: "5%",
               ...spring5,
             }}
             onMouseOver={() => expand(api5, 4)}
-            onMouseLeave={() => retract(api5, 4)}
+            onMouseLeave={() => retract(api5, 4, "5%")}
           ></animated.div>
           <animated.div
             className="square-container"
             style={{
-              width: "10%",
+              width: "5%",
               ...spring6,
             }}
             onMouseOver={() => expand(api6, 5)}
-            onMouseLeave={() => retract(api6, 5)}
+            onMouseLeave={() => retract(api6, 5, "5%")}
           ></animated.div>
+          <div
+            className="rounded-container"
+            style={{
+              width: "25%",
+              height: "90vh",
+              opacity: 0,
+            }}
+          ></div>
         </div>
-        <div className="gradient-background-2 absolute mix-blend-multiply pointer-events-none"></div>
-        <div className="p-6 md:p-9 lg:p-12 pointer-events-none">
-          <p className="text-2xl sm:text-4xl lg:text-6xl xl:text-8xl font-display text-white mix-blend-overlay">
-            OLIVERTOOHEY.COM
-          </p>
-        </div>
-        <button className="fixed bottom-24 font-serif">
-          descend into my world
-        </button>
-      </header>
-      <header className="App-header fixed">
-        {/* <div class="grid grid-flow-col auto-cols-6 w-screen fixed top-24"> */}
-        <div className="container flex flex-row space-x-2 w-screen fixed top-24">
-          <p
-            className={opacityArray[0] ? "text-opaque" : "text-clear"}
-            style={{
-              width: "10%",
-              justifyContent: "center",
-            }}
-          >
-            Hello there, welcome to my website.
-          </p>
-          <p
-            className={opacityArray[1] ? "text-opaque" : "text-clear"}
-            style={{
-              width: "30%",
-            }}
-          >
-            My name is Oliver Toohey and I'm a Software Developer based in
-            Melbourne, Australia. I mainly work with React and Flutter.
-          </p>
-          <p
-            className={opacityArray[2] ? "text-opaque" : "text-clear"}
-            style={{
-              width: "20%",
-            }}
-          >
-            I also dabble in the AWS/Azure platforms, deploying infrastucture as
-            code using CDK.
-          </p>
-          <p
-            className={opacityArray[3] ? "text-opaque" : "text-clear"}
-            style={{
-              width: "20%",
-            }}
-          >
-            Need something automated? I can do that with Ansible, at least until
-            ChatGPT takes over.
-          </p>
-          <p
-            className={opacityArray[4] ? "text-opaque" : "text-clear"}
-            style={{
-              width: "10%",
-            }}
-          >
-            I love to travel and want to work overseas one day.
-          </p>
-          <p
-            className={opacityArray[5] ? "text-opaque" : "text-clear"}
-            style={{
-              width: "10%",
-            }}
-          >
-            Nice to meet you :)
-          </p>
-        </div>
-      </header>
+        {/* <div className="gradient-background absolute mix-blend-multiply pointer-events-none"></div> */}
+        <button className="font-bold">descend into my world</button>
+      </div>
+      <p className="fixed uppercase mx-auto inset-x-0 top-12 text-white">
+        olivertoohey.com
+      </p>
+      <div className="fixed mx-auto inset-x-0 top-24">
+        <p className={opacityArray[0] ? "text-opaque" : "text-clear"}>
+          Hello there, welcome to my website.
+        </p>
+      </div>
+      <div className="fixed mx-auto inset-x-0 top-24">
+        <p className={opacityArray[1] ? "text-opaque" : "text-clear"}>
+          My name is Oliver Toohey and I'm a Software Developer based in
+          Melbourne, Australia. I mainly work with React and Flutter.
+        </p>
+      </div>
+      <div className="fixed mx-auto inset-x-0 top-24">
+        <p className={opacityArray[2] ? "text-opaque" : "text-clear"}>
+          I also dabble in the AWS/Azure platforms, deploying infrastucture as
+          code using CDK.
+        </p>
+      </div>
+      <div className="fixed mx-auto inset-x-0 top-24">
+        <p className={opacityArray[3] ? "text-opaque" : "text-clear"}>
+          Need something automated? I can do that with Ansible, at least until
+          ChatGPT takes over.
+        </p>
+      </div>
+      <div className="fixed mx-auto inset-x-0 top-24">
+        <p className={opacityArray[4] ? "text-opaque" : "text-clear"}>
+          I love to travel and want to work overseas one day.
+        </p>
+      </div>
+      <div className="fixed mx-auto inset-x-0 top-24">
+        <p className={opacityArray[5] ? "text-opaque" : "text-clear"}>
+          Nice to meet you :)
+        </p>
+      </div>
     </div>
   );
 }

@@ -4,9 +4,9 @@
 
 .App-header {
   background-color: #313131;
-  /* background-color: white; */
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100vh;
+  width: 100vw;
+  min-height: 550px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,20 +14,7 @@
   color: white;
 }
 
-.gradient-background-1 {
-  min-height: 100vh;
-  min-width: 100vw;
-  background: conic-gradient(
-          at 70% 55%,
-          #f5873c 90deg,
-          #6990f3 130deg,
-          #6990f3 250deg,
-          #f5873c 251deg
-        );
-  pointer-events: none;
-}
-
-.gradient-background-2 {
+.gradient-background {
   min-height: 100vh;
   min-width: 100vw;
   background: conic-gradient(
@@ -37,13 +24,14 @@
           #67C8FF 210deg,
           #f5873c 280deg,
           #67C8FF 354deg,
-          #FF4545 355deg
+          #04ff4b 355deg,
+          #FF4545 357deg
         );
 }
 
 .rounded-container {
   background-color: white;
-  border-radius: 50px;
+  border-radius: 100px;
   height: 20vh;
   min-height: 80px;
 }
@@ -54,7 +42,7 @@
 
 .square-container {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   height: 20vh;
   min-height: 80px;
 }
@@ -68,7 +56,8 @@
 
 .text-opaque {
   opacity: 1;
-  transition: 1000ms;
+  transition: 400ms;
   padding: 12pt;
   font-weight: bold;
+  color: white;
 }
