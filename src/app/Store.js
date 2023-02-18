@@ -5,6 +5,6 @@ import homescreenReducer from "../features/homescreenAnimation/homescreenAnimati
 export default configureStore({
   reducer: {
     opacity: opacityReducer,
-    fixedPosition: homescreenReducer,
+    homescreen: homescreenReducer,
   },
 });

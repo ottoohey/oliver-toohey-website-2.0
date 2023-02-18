@@ -18,6 +18,11 @@ module.exports = {
     backgroundSize: {
       small: "40pt",
     },
+    extend: {
+      inset: {
+        "nearly-full": "98%",
+      },
+    },
   },
   important: true,
   plugins: [],

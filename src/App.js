@@ -3,11 +3,17 @@ import { useSpring, animated, easings } from "@react-spring/web";
 import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { transition } from "./features/opacity/opacitySlice.js";
-import { position } from "./features/homescreenAnimation/homescreenAnimationSlice.js";
+import {
+  position,
+  padding,
+} from "./features/homescreenAnimation/homescreenAnimationSlice.js";
 
 function App() {
   const opacityArray = useSelector((state) => state.opacity.value);
-  const fixedPosition = useSelector((state) => state.fixedPosition.value);
+  const fixedPosition = useSelector((state) => state.homescreen.value);
+  const paddingEnabled = useSelector(
+    (state) => state.homescreen.paddingEnabled
+  );
   const dispatch = useDispatch();
 
   const breathingConfig = {
@@ -120,10 +126,28 @@ function App() {
     const webDescElementRelativePostition =
       webDescElementDistanceToTop - scrollPosition;
 
+    const cloudDescElement = document.getElementById("cloudDescElement");
+    const cloudDescElementDistanceToTop =
+      window.pageYOffset + cloudDescElement.getBoundingClientRect().top;
+    const cloudDescElementRelativePostition =
+      cloudDescElementDistanceToTop - scrollPosition;
+
+    const automationDescElement = document.getElementById(
+      "automationDescElement"
+    );
+    const automationDescElementDistanceToTop =
+      window.pageYOffset + automationDescElement.getBoundingClientRect().top;
+    const automationDescElementRelativePostition =
+      automationDescElementDistanceToTop - scrollPosition;
+
+    console.log(automationDescElementRelativePostition);
+
     dispatch(
       position([
         mobDescElementRelativePostition,
         webDescElementRelativePostition,
+        cloudDescElementRelativePostition,
+        automationDescElementRelativePostition,
       ])
     );
   };
@@ -138,11 +162,70 @@ function App() {
 
   const morphShape = () => {
     if (fixedPosition[0]) {
+      morph(0);
       return "phone-screen fixed top-32 pointer-events-none bg-green-300";
     } else if (fixedPosition[1]) {
+      morph(1);
       return "laptop-screen fixed top-32 pointer-events-none bg-green-300";
+    } else if (fixedPosition[2]) {
+      morph(2);
+      return "cloud-stack fixed top-32 pointer-events-none bg-green-300";
+    } else if (fixedPosition[3]) {
+      morph(3);
+      return "automation-clock fixed top-32 pointer-events-none bg-green-300";
+    } else if (fixedPosition[4]) {
+      morph();
+      return "clock-off fixed top-32 pointer-events-none bg-green-300";
     } else {
-      return "phone-screen relative top-32 pointer-events-none bg-blue-300";
+      morph();
+      return "starter-square relative top-32 pointer-events-none bg-yellow-100";
+    }
+  };
+
+  const [morphSpring, morphApi] = useSpring(() => ({
+    xys: [0, 0, 1],
+    config: { mass: 1, tension: 0, friction: 5 },
+  }));
+
+  const trans = (x, y, s) =>
+    `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
+
+  const morph = (index) => {
+    switch (index) {
+      case 0:
+        morphApi.start({
+          to: {
+            xys: [0, 5, 1],
+          },
+        });
+        break;
+      case 1:
+        morphApi.start({
+          to: {
+            xys: [0, 10, 1],
+          },
+        });
+        break;
+      case 2:
+        morphApi.start({
+          to: {
+            xys: [80, 0, 1],
+          },
+        });
+        break;
+      case 3:
+        morphApi.start({
+          to: {
+            xys: [0, 0, 1],
+          },
+        });
+        break;
+      default:
+        morphApi.start({
+          to: {
+            xys: [0, 0, 1],
+          },
+        });
     }
   };
 
@@ -272,7 +355,8 @@ function App() {
       </div>
       <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
         <p className={opacityArray[2] ? "text-opaque" : "text-clear"}>
-          My head gets stuck in the clouds sometimes, mainly AWS and Azure.
+          My head gets stuck in the clouds sometimes (haha), mainly AWS and
+          Azure.
         </p>
       </div>
       <div className="fixed mx-auto inset-x-0 top-24 text-sm sm:text-lg">
@@ -293,22 +377,35 @@ function App() {
       </div>
       <div className="h-screen w-screen bg-zinc-800">
         <div className="flex pt-32 bg-zinc-800">
-          <div className="w-1/2 flex justify-end p-16">
-            <div
+          <div
+            className={
+              paddingEnabled
+                ? "w-1/2 flex justify-end p-8"
+                : "w-1/2 flex justify-end p-0"
+            }
+          >
+            <animated.div
               className={morphShape()}
-              // className={
-              //   if (!fixedPosition[0]) {
-              //     "phone-screen relative top-32 pointer-events-none bg-blue-300"
-              //   } else {
-              //     "phone-screen fixed top-32 pointer-events-none bg-green-300"
-              //   }
-              // }
-              // className={
-              //   fixedPosition[0]
-              //     ? "phone-screen fixed top-32 pointer-events-none bg-green-300"
-              //     : "phone-screen relative top-32 pointer-events-none bg-blue-300"
-              // }
-            ></div>
+              style={{
+                transform: morphSpring.xys.to(trans),
+                opacity: fixedPosition[2] ? 1 : 0,
+              }}
+            ></animated.div>
+            <animated.div
+              className={morphShape()}
+              style={{
+                transform: morphSpring.xys.to(trans),
+                y: fixedPosition[2] ? "20pt" : "0pt",
+                opacity: fixedPosition[2] ? 1 : 0,
+              }}
+            ></animated.div>
+            <animated.div
+              className={morphShape()}
+              style={{
+                transform: morphSpring.xys.to(trans),
+                y: fixedPosition[2] ? "-20pt" : "0pt",
+              }}
+            ></animated.div>
           </div>
           <div className="flex-col w-1/3 pt-16">
             <>
@@ -329,6 +426,7 @@ function App() {
               <p className="text-white text-start p-4">
                 Check out my app here!
               </p>
+              <div className="h-80"></div>
             </>
             <>
               <p
@@ -340,9 +438,50 @@ function App() {
               <p className="text-white text-start p-4">
                 Although that should be pretty obvious if you're reading this.
               </p>
-              <div className="h-screen"></div>
+              <div className="h-80"></div>
+            </>
+            <>
+              <p
+                className="text-white text-start pt-64 p-4"
+                id="cloudDescElement"
+              >
+                So where do I deploy everything?
+              </p>
+              <p className="text-white text-start p-4">
+                The cloud of course, wherever that is...
+              </p>
+              <p className="text-white text-start p-4">
+                I have my AWS Solutions Architect Associate Certificate and can
+                deploy infrastructure as code using CDK.
+              </p>
+              <p className="text-white text-start p-4">
+                I've also done a fair bit in Azure.
+              </p>
+              <div className="h-80"></div>
+            </>
+            <>
+              <p
+                className="text-white text-start pt-64 p-4"
+                id="automationDescElement"
+              >
+                Finally, transitioning to full time work as left me with a
+                worryingly small amount of free time.
+              </p>
+              <p className="text-white text-start p-4">
+                Thankfully I have been introduced to automation.
+              </p>
+              <p className="text-white text-start p-4">
+                At work, we use Ansible.
+              </p>
+              <p className="text-white text-start p-4">
+                At home, I use Google App Scripts.
+              </p>
+              <div className="h-48"></div>
             </>
           </div>
+        </div>
+        <div className="h-screen bg-zinc-700">
+          <p>testing</p>
         </div>
       </div>
     </div>

@@ -1,23 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const defaultBuffer = 128;
+
 export const homescreenAnimationSlice = createSlice({
   name: "fixedPosition",
   initialState: {
-    value: [false, false],
+    paddingEnabled: false,
+    value: [false, false, false, false, false],
   },
   reducers: {
     position: (state, action) => {
-      if (action.payload[0] <= 0 && action.payload[1] >= 32) {
-        state.value = [true, false];
-      } else if (action.payload[1] <= 32) {
-        state.value = [false, true];
+      if (
+        action.payload[0] <= 0 &&
+        action.payload[1] >= defaultBuffer &&
+        action.payload[2] >= defaultBuffer &&
+        action.payload[3] >= defaultBuffer
+      ) {
+        state.value = [true, false, false, false, false];
+        state.paddingEnabled = true;
+      } else if (
+        action.payload[1] <= defaultBuffer &&
+        action.payload[2] >= defaultBuffer &&
+        action.payload[3] >= defaultBuffer
+      ) {
+        state.value = [false, true, false, false, false];
+      } else if (
+        action.payload[2] <= defaultBuffer &&
+        action.payload[3] >= defaultBuffer
+      ) {
+        state.value = [false, false, true, false, false];
+      } else if (action.payload[3] <= -200) {
+        state.value = [false, false, false, false, true];
+      } else if (action.payload[3] <= defaultBuffer) {
+        state.value = [false, false, false, true, false];
       } else {
-        state.value = [false, false];
+        state.value = [false, false, false, false];
+        state.paddingEnabled = false;
       }
     },
   },
 });
 
-export const { position } = homescreenAnimationSlice.actions;
+export const { position, padding } = homescreenAnimationSlice.actions;
 
 export default homescreenAnimationSlice.reducer;
