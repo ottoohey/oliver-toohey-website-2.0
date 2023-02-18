@@ -62,5 +62,13 @@
   height: 300pt;
   width: 150pt;
   min-width: 150pt;
-  /* background-color: #fef9c3; */
+  transition: all 200ms ease;
+}
+
+.laptop-screen {
+  border-radius: 10px;
+  height: 200pt;
+  width: 400pt;
+  min-width: 400pt;
+  transition: all 200ms ease;
 }

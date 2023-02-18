@@ -108,12 +108,24 @@ function App() {
   const handleScroll = () => {
     const scrollPosition = window.pageYOffset;
 
-    const el = document.getElementById("topElement");
-    const elDistanceToTop = window.pageYOffset + el.getBoundingClientRect().top;
+    const mobDescElement = document.getElementById("mobDescElement");
+    const mobDescElementDistanceToTop =
+      window.pageYOffset + mobDescElement.getBoundingClientRect().top;
+    const mobDescElementRelativePostition =
+      mobDescElementDistanceToTop - scrollPosition;
 
-    const relativePostition = elDistanceToTop - scrollPosition;
+    const webDescElement = document.getElementById("webDescElement");
+    const webDescElementDistanceToTop =
+      window.pageYOffset + webDescElement.getBoundingClientRect().top;
+    const webDescElementRelativePostition =
+      webDescElementDistanceToTop - scrollPosition;
 
-    dispatch(position(relativePostition));
+    dispatch(
+      position([
+        mobDescElementRelativePostition,
+        webDescElementRelativePostition,
+      ])
+    );
   };
 
   useEffect(() => {
@@ -123,6 +135,16 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const morphShape = () => {
+    if (fixedPosition[0]) {
+      return "phone-screen fixed top-32 pointer-events-none bg-green-300";
+    } else if (fixedPosition[1]) {
+      return "laptop-screen fixed top-32 pointer-events-none bg-green-300";
+    } else {
+      return "phone-screen relative top-32 pointer-events-none bg-blue-300";
+    }
+  };
 
   return (
     <div className="App">
@@ -272,53 +294,54 @@ function App() {
       <div className="h-screen w-screen bg-zinc-800">
         <div className="flex pt-32 bg-zinc-800">
           <div className="w-1/2 flex justify-end p-16">
-            <div className="phone-screen fixed top-32 pointer-events-none"></div>
             <div
-              className={
-                fixedPosition
-                  ? "phone-screen fixed top-32 pointer-events-none bg-green-300"
-                  : "phone-screen relative top-32 pointer-events-none bg-blue-300"
-              }
+              className={morphShape()}
+              // className={
+              //   if (!fixedPosition[0]) {
+              //     "phone-screen relative top-32 pointer-events-none bg-blue-300"
+              //   } else {
+              //     "phone-screen fixed top-32 pointer-events-none bg-green-300"
+              //   }
+              // }
+              // className={
+              //   fixedPosition[0]
+              //     ? "phone-screen fixed top-32 pointer-events-none bg-green-300"
+              //     : "phone-screen relative top-32 pointer-events-none bg-blue-300"
+              // }
             ></div>
           </div>
           <div className="flex-col w-1/3 pt-16">
-            <p
-              className="text-white text-start pt-64 p-4"
-              ref={titleRef}
-              id="topElement"
-            >
-              Need a mobile app developed?
-            </p>
-            <p className="text-white text-start p-4">
-              I might be able to help.
-            </p>
-            <p className="text-white text-start p-4">
-              Most of my experience is with Flutter, however React Native isn't
-              an issue either.
-            </p>
-            <p className="text-white text-start p-4">Check out my app here!</p>
-            <p className="text-white text-start pt-64 pl-4">
-              Need a mobile app developed?
-            </p>
-            <p className="text-white text-start p-4">
-              I might be able to help.
-            </p>
-            <p className="text-white text-start p-4">
-              Most of my experience is with Flutter, however React Native isn't
-              an issue either.
-            </p>
-            <p className="text-white text-start p-4">Check out my app here!</p>
-            <p className="text-white text-start pt-64 pl-4">
-              Need a mobile app developed?
-            </p>
-            <p className="text-white text-start p-4">
-              I might be able to help.
-            </p>
-            <p className="text-white text-start p-4">
-              Most of my experience is with Flutter, however React Native isn't
-              an issue either.
-            </p>
-            <p className="text-white text-start p-4">Check out my app here!</p>
+            <>
+              <p
+                className="text-white text-start pt-64 p-4"
+                ref={titleRef}
+                id="mobDescElement"
+              >
+                Need a mobile app developed?
+              </p>
+              <p className="text-white text-start p-4">
+                I might be able to help.
+              </p>
+              <p className="text-white text-start p-4">
+                Most of my experience is with Flutter, however React Native
+                isn't an issue either.
+              </p>
+              <p className="text-white text-start p-4">
+                Check out my app here!
+              </p>
+            </>
+            <>
+              <p
+                className="text-white text-start pt-64 p-4"
+                id="webDescElement"
+              >
+                I've got websites covered too.
+              </p>
+              <p className="text-white text-start p-4">
+                Although that should be pretty obvious if you're reading this.
+              </p>
+              <div className="h-screen"></div>
+            </>
           </div>
         </div>
       </div>
