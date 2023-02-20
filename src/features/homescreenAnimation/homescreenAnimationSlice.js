@@ -29,7 +29,7 @@ export const homescreenAnimationSlice = createSlice({
         action.payload[3] >= defaultBuffer
       ) {
         state.value = [false, false, true, false, false];
-      } else if (action.payload[3] <= -200) {
+      } else if (action.payload[3] <= -350) {
         state.value = [false, false, false, false, true];
       } else if (action.payload[3] <= defaultBuffer) {
         state.value = [false, false, false, true, false];

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow-x: hidden;
 }
 
 .App-header {
@@ -38,7 +39,6 @@
 .square-container {
   border-radius: 5px;
   background-color: #fef9c3;
-  border-color: #04ff4b;
   min-height: 130px;
 }
 
@@ -64,6 +64,14 @@
   transition: all 200ms ease;
 }
 
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #fef9c3;
+}
+
 .phone-screen {
   border-radius: 10px;
   height: 300pt;
@@ -85,6 +93,7 @@
   height: 200pt;
   width: 200pt;
   min-width: 200pt;
+  margin-right: 16pt;
   transition: all 200ms ease;
 }
 
