@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { transition } from "./features/opacity/opacitySlice.js";
 import { position } from "./features/homescreenAnimation/homescreenAnimationSlice.js";
+import ReactSlider from "react-slider";
 
 function App() {
   const opacityArray = useSelector((state) => state.opacity.value);
@@ -13,6 +14,21 @@ function App() {
   );
   const promptEnabled = useSelector((state) => state.opacity.promptBool);
   const dispatch = useDispatch();
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   const breathingConfig = {
     duration: 2000,
@@ -161,21 +177,6 @@ function App() {
     };
   }, []);
 
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  const isMobile = width <= 768;
-
   const morphShape = (stackIndex) => {
     let bgImage = "s3";
     switch (stackIndex) {
@@ -263,13 +264,13 @@ function App() {
   return (
     <div className="App">
       <div className="App-header relative">
-        <div>
-          <div className="flex flex-row space-x-2 w-screen content-center">
+        <div className="flex flex-col">
+          <div className="flex flex-row space-x-2 w-screen">
             <div
               className="rounded-container"
               style={{
                 width: "25%",
-                height: "90vh",
+                height: isMobile ? "80vh" : "90vh",
                 opacity: 0,
               }}
             ></div>
@@ -367,10 +368,23 @@ function App() {
               className="rounded-container"
               style={{
                 width: "25%",
-                height: "90vh",
+                height: isMobile ? "80vh" : "90vh",
                 opacity: 0,
               }}
             ></div>
+          </div>
+          <div
+            className={
+              isMobile ? "w-screen mx-auto inset-x-0 -mt-12 p-12" : "-ml-96"
+            }
+          >
+            <ReactSlider
+              className="customSlider"
+              trackClassName="customSlider-track"
+              thumbClassName="customSlider-thumb"
+              max={5}
+              onChange={(value) => console.log(value)}
+            ></ReactSlider>
           </div>
         </div>
         {/* <div className="gradient-background absolute mix-blend-multiply pointer-events-none"></div> */}
