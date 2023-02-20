@@ -5,6 +5,7 @@ export const opacitySlice = createSlice({
   initialState: {
     value: [false, false, false, false, false, false],
     mobileValues: [true, false, false, false, false, false],
+    previousMobileValue: 0,
     promptBool: false,
   },
   reducers: {
@@ -20,21 +21,27 @@ export const opacitySlice = createSlice({
       switch (action.payload) {
         case 1:
           state.mobileValues = [false, true, false, false, false, false];
+          state.previousMobileValue = 1;
           break;
         case 2:
           state.mobileValues = [false, false, true, false, false, false];
+          state.previousMobileValue = 2;
           break;
         case 3:
           state.mobileValues = [false, false, false, true, false, false];
+          state.previousMobileValue = 3;
           break;
         case 4:
           state.mobileValues = [false, false, false, false, true, false];
+          state.previousMobileValue = 4;
           break;
         case 5:
           state.mobileValues = [false, false, false, false, false, true];
+          state.previousMobileValue = 5;
           break;
         default:
           state.mobileValues = [true, false, false, false, false, false];
+          state.previousMobileValue = 0;
           break;
       }
     },

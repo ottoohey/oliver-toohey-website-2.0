@@ -113,9 +113,9 @@
 }
 
 :root {
-  --main-color: rgb(104, 117, 217);
-  --main-color-hover: rgb(104, 117, 217, 0.2);
-  --track-color: #ddd;
+  --main-color: #fef9c3;
+  --main-color-hover: #f7f3ce39;
+  --track-color: #555555;
 }
 
 .customSlider {

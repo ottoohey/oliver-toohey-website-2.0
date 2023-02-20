@@ -28,6 +28,9 @@ function App() {
   const opacityArray = useSelector((state) =>
     isMobile ? state.opacity.mobileValues : state.opacity.value
   );
+  const previousMobileValue = useSelector(
+    (state) => state.opacity.previousMobileValue
+  );
   const fixedPosition = useSelector((state) => state.homescreen.value);
   const paddingEnabled = useSelector(
     (state) => state.homescreen.paddingEnabled
@@ -52,7 +55,9 @@ function App() {
   function configureSpring(index, delay) {
     let width = "0%";
 
-    if (index === 1) {
+    if (index === 0) {
+      width = "90%";
+    } else if (index === 1) {
       width = "15%";
     } else if (index === 2 || index === 3) {
       width = "10%";
@@ -84,10 +89,11 @@ function App() {
   const [spring6, api6] = useSpring(() => configureSpring(5, 100));
 
   const expand = (api, order) => {
+    let width = isMobile ? "90%" : "20%";
     api.start({
       to: {
         height: "35vh",
-        width: "20%",
+        width: width,
         y: "27vh",
       },
       config: fastMoveConfig,
@@ -268,6 +274,59 @@ function App() {
 
   function changeSliderValue(value) {
     dispatch(sliderTransition(value));
+
+    let retractApi = api1;
+    let width = "5%";
+    switch (previousMobileValue) {
+      case 1:
+        retractApi = api2;
+        width = "15%";
+        break;
+      case 2:
+        retractApi = api3;
+        width = "10%";
+        break;
+      case 3:
+        retractApi = api4;
+        width = "10%";
+        break;
+      case 4:
+        retractApi = api5;
+        width = "5%";
+        break;
+      case 5:
+        retractApi = api6;
+        width = "5%";
+        break;
+      default:
+        retractApi = api1;
+        width = "5%";
+        break;
+    }
+
+    let expandApi = api1;
+    switch (value) {
+      case 1:
+        expandApi = api2;
+        break;
+      case 2:
+        expandApi = api3;
+        break;
+      case 3:
+        expandApi = api4;
+        break;
+      case 4:
+        expandApi = api5;
+        break;
+      case 5:
+        expandApi = api6;
+        break;
+      default:
+        expandApi = api1;
+        break;
+    }
+    retract(retractApi, previousMobileValue, width);
+    expand(expandApi, value);
   }
 
   return (
@@ -294,8 +353,9 @@ function App() {
                 transformOrigin: "center",
                 ...spring1,
               }}
+              // onLoad={() => (isMobile ? expand(api1, 0) : null)}
               onMouseOver={() => (isMobile ? null : expand(api1, 0))}
-              onMouseLeave={() => retract(api1, 0, "5%")}
+              onMouseLeave={() => (isMobile ? null : retract(api1, 0, "5%"))}
             >
               <div
                 className={
@@ -318,8 +378,8 @@ function App() {
                 width: "15%",
                 ...spring2,
               }}
-              onMouseOver={() => expand(api2, 1)}
-              onMouseLeave={() => retract(api2, 1, "15%")}
+              onMouseOver={() => (isMobile ? null : expand(api2, 1))}
+              onMouseLeave={() => (isMobile ? null : retract(api2, 1, "15%"))}
             ></animated.div>
             <animated.div
               className={
@@ -331,8 +391,8 @@ function App() {
                 width: "10%",
                 ...spring3,
               }}
-              onMouseOver={() => expand(api3, 2)}
-              onMouseLeave={() => retract(api3, 2, "10%")}
+              onMouseOver={() => (isMobile ? null : expand(api3, 2))}
+              onMouseLeave={() => (isMobile ? null : retract(api3, 2, "10%"))}
             ></animated.div>
             <animated.div
               className={
@@ -344,8 +404,8 @@ function App() {
                 width: "10%",
                 ...spring4,
               }}
-              onMouseOver={() => expand(api4, 3)}
-              onMouseLeave={() => retract(api4, 3, "10%")}
+              onMouseOver={() => (isMobile ? null : expand(api4, 3))}
+              onMouseLeave={() => (isMobile ? null : retract(api4, 3, "10%"))}
             ></animated.div>
             <animated.div
               className={
@@ -357,8 +417,8 @@ function App() {
                 width: "5%",
                 ...spring5,
               }}
-              onMouseOver={() => expand(api5, 4)}
-              onMouseLeave={() => retract(api5, 4, "5%")}
+              onMouseOver={() => (isMobile ? null : expand(api5, 4))}
+              onMouseLeave={() => (isMobile ? null : retract(api5, 4, "5%"))}
             ></animated.div>
             <animated.div
               className={
@@ -370,8 +430,8 @@ function App() {
                 width: "5%",
                 ...spring6,
               }}
-              onMouseOver={() => expand(api6, 5)}
-              onMouseLeave={() => retract(api6, 5, "5%")}
+              onMouseOver={() => (isMobile ? null : expand(api6, 5))}
+              onMouseLeave={() => (isMobile ? null : retract(api6, 5, "5%"))}
             ></animated.div>
             <div
               className="rounded-container"
