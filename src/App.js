@@ -2,19 +2,14 @@ import "./App.css";
 import { useSpring, animated, easings } from "@react-spring/web";
 import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { transition } from "./features/opacity/opacitySlice.js";
+import {
+  transition,
+  sliderTransition,
+} from "./features/opacity/opacitySlice.js";
 import { position } from "./features/homescreenAnimation/homescreenAnimationSlice.js";
 import ReactSlider from "react-slider";
 
 function App() {
-  const opacityArray = useSelector((state) => state.opacity.value);
-  const fixedPosition = useSelector((state) => state.homescreen.value);
-  const paddingEnabled = useSelector(
-    (state) => state.homescreen.paddingEnabled
-  );
-  const promptEnabled = useSelector((state) => state.opacity.promptBool);
-  const dispatch = useDispatch();
-
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {
@@ -29,6 +24,16 @@ function App() {
   }, []);
 
   const isMobile = width <= 768;
+
+  const opacityArray = useSelector((state) =>
+    isMobile ? state.opacity.mobileValues : state.opacity.value
+  );
+  const fixedPosition = useSelector((state) => state.homescreen.value);
+  const paddingEnabled = useSelector(
+    (state) => state.homescreen.paddingEnabled
+  );
+  const promptEnabled = useSelector((state) => state.opacity.promptBool);
+  const dispatch = useDispatch();
 
   const breathingConfig = {
     duration: 2000,
@@ -261,6 +266,10 @@ function App() {
     }
   };
 
+  function changeSliderValue(value) {
+    dispatch(sliderTransition(value));
+  }
+
   return (
     <div className="App">
       <div className="App-header relative">
@@ -285,7 +294,7 @@ function App() {
                 transformOrigin: "center",
                 ...spring1,
               }}
-              onMouseOver={() => expand(api1, 0)}
+              onMouseOver={() => (isMobile ? null : expand(api1, 0))}
               onMouseLeave={() => retract(api1, 0, "5%")}
             >
               <div
@@ -379,11 +388,11 @@ function App() {
             }
           >
             <ReactSlider
-              className="customSlider"
+              className={isMobile ? "customSlider" : "opacity-0"}
               trackClassName="customSlider-track"
               thumbClassName="customSlider-thumb"
               max={5}
-              onChange={(value) => console.log(value)}
+              onChange={(value) => changeSliderValue(value)}
             ></ReactSlider>
           </div>
         </div>
