@@ -56,7 +56,7 @@ function App() {
     let width = "0%";
 
     if (index === 0) {
-      width = "90%";
+      width = isMobile ? "90%" : "5%";
     } else if (index === 1) {
       width = "15%";
     } else if (index === 2 || index === 3) {
@@ -353,7 +353,6 @@ function App() {
                 transformOrigin: "center",
                 ...spring1,
               }}
-              // onLoad={() => (isMobile ? expand(api1, 0) : null)}
               onMouseOver={() => (isMobile ? null : expand(api1, 0))}
               onMouseLeave={() => (isMobile ? null : retract(api1, 0, "5%"))}
             >
@@ -397,7 +396,7 @@ function App() {
             <animated.div
               className={
                 opacityArray[3]
-                  ? "square-container bg-open-ai bg-right bg-cover border-2 border-green-200"
+                  ? "square-container bg-automation bg-center bg-cover bg-no-repeat border-2 border-green-200"
                   : "square-container"
               }
               style={{
@@ -448,7 +447,7 @@ function App() {
             }
           >
             <ReactSlider
-              className={isMobile ? "customSlider" : "opacity-0"}
+              className={isMobile ? "customSlider" : "opacity-0 fixed -top-2"}
               trackClassName="customSlider-track"
               thumbClassName="customSlider-thumb"
               max={5}
@@ -464,7 +463,7 @@ function App() {
           descend into my world
         </button>
       </div>
-      <div className="fixed mx-auto inset-x-0 top-0 bg-zinc-800 h-24">
+      <div className="fixed mx-auto inset-x-0 -top-1 bg-zinc-800 h-24">
         <p className="fixed uppercase mx-auto inset-x-0 top-12 text-2xl text-yellow-100">
           olivertoohey.com
         </p>
@@ -558,7 +557,18 @@ function App() {
               an issue either.
             </p>
             <p className="text-white text-start p-4">
-              Check out my app <strong>here</strong>.
+              Check out my app{" "}
+              <strong>
+                <a
+                  href="https://apps.apple.com/au/app/project-cut/id1662427655"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-yellow-100"
+                >
+                  here
+                </a>
+              </strong>
+              .
             </p>
             <p className="text-white text-start text-xs p-4 mt-4">
               KEEP SCROLLING
@@ -576,6 +586,24 @@ function App() {
             </p>
             <p className="text-white text-start p-4">
               Although that should be pretty obvious if you're reading this.
+            </p>
+            <p className="text-white text-start p-4">
+              I put a lot of effort into these animations, so I hope you like
+              them.
+            </p>
+            <p className="text-white text-start p-4">
+              Have a look at how I did it{" "}
+              <strong>
+                <a
+                  href="https://github.com/ottoohey/oliver-toohey-website-2.0"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-yellow-100"
+                >
+                  here
+                </a>
+              </strong>
+              .
             </p>
             <p className="text-white text-start text-xs p-4 mt-4">
               YOU'VE GOT THIS
@@ -644,9 +672,30 @@ function App() {
         <p className="text-white p-4">
           Although, if convenient, please try one of the following methods.
         </p>
-        <p className="text-white p-4">oli@olivertoohey.com</p>
-        <p className="text-white p-4">linkedin</p>
-        <p className="text-white p-4 pb-16">github</p>
+        <div className="grid grid-cols-1 gap-2">
+          <a
+            href="mailto: oli@olivertoohey.com"
+            className="text-white p-4 font-bold hover:text-yellow-100"
+          >
+            oli@olivertoohey.com
+          </a>
+          <a
+            target="_blank"
+            href="https://github.com/ottoohey"
+            className="text-white p-4 font-bold hover:text-yellow-100"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/oliver-toohey-336652154/"
+            className="text-white p-4 pb-8 font-bold hover:text-yellow-100"
+            rel="noreferrer"
+          >
+            LinkedIn
+          </a>
+        </div>
       </div>
     </div>
   );

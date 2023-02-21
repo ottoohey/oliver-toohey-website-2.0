@@ -11,7 +11,7 @@ module.exports = {
       flutter: "url('./icons/flutter.png')",
       dev: "url('./icons/dev.jpg')",
       cloud: "url('./icons/cloud.jpg')",
-      "open-ai": "url('./icons/openai.jpg')",
+      automation: "url('./icons/automation.png')",
       norway: "url('./icons/norway.JPG')",
       mona: "url('./icons/mona.jpeg')",
       react: "url('./icons/react.png')",
@@ -21,7 +21,7 @@ module.exports = {
       s3: "url('./icons/S3.png')",
     },
     backgroundSize: {
-      small: "40pt",
+      small: "35vw",
     },
     extend: {
       inset: {
