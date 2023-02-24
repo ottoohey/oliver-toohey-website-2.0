@@ -1,12 +1,16 @@
 import "./App.css";
 import React, { useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { position } from "./features/homescreenAnimation/homescreenAnimationSlice.js";
 import Homescreen from "./components/Homescreen";
 import ContactMe from "./components/ContactMe";
 import ScrollingView from "./components/ScrollingView";
+import { sliderTransition } from "./features/opacity/opacitySlice";
 
 function App() {
+  const previousMobileValue = useSelector(
+    (state) => state.opacity.previousMobileValue
+  );
   const dispatch = useDispatch();
 
   const titleRef = useRef();
@@ -56,6 +60,12 @@ function App() {
         automationDescElementRelativePostition,
       ])
     );
+
+    if (scrollPosition <= 0) {
+      dispatch(sliderTransition(previousMobileValue));
+    } else {
+      dispatch(sliderTransition(6));
+    }
   };
 
   useEffect(() => {

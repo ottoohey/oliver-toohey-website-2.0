@@ -39,6 +39,9 @@ export const opacitySlice = createSlice({
           state.mobileValues = [false, false, false, false, false, true];
           state.previousMobileValue = 5;
           break;
+        case 6:
+          state.mobileValues = [false, false, false, false, false, false];
+          break;
         default:
           state.mobileValues = [true, false, false, false, false, false];
           state.previousMobileValue = 0;
