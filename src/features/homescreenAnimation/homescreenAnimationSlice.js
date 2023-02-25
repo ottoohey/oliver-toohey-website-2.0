@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultBuffer = 128;
 
-export const homescreenAnimationSlice = createSlice({
+export const HomescreenAnimationSlice = createSlice({
   name: "fixedPosition",
   initialState: {
     paddingEnabled: false,
@@ -41,6 +41,6 @@ export const homescreenAnimationSlice = createSlice({
   },
 });
 
-export const { position, padding } = homescreenAnimationSlice.actions;
+export const { position, padding } = HomescreenAnimationSlice.actions;
 
-export default homescreenAnimationSlice.reducer;
+export default HomescreenAnimationSlice.reducer;

@@ -1,89 +1,37 @@
 import "./App.css";
-import React, { useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { position } from "./features/homescreenAnimation/homescreenAnimationSlice.js";
+import React, { useRef } from "react";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Homescreen from "./components/Homescreen";
-import ContactMe from "./components/ContactMe";
-import ScrollingView from "./components/ScrollingView";
-import { sliderTransition } from "./features/opacity/opacitySlice";
+import Blogs from "./components/Blogs";
+import ErrorPage from "./components/ErrorPage";
+import NavigationBanner from "./components/NavigationBanner";
+import BlogPost from "./components/BlogPost";
 
 function App() {
-  const previousMobileValue = useSelector(
-    (state) => state.opacity.previousMobileValue
-  );
-  const dispatch = useDispatch();
-
-  const titleRef = useRef();
-  function scrollDownToOverview() {
-    titleRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-
   const contactMeRef = useRef();
   function scrollDownToContactMe() {
     contactMeRef.current.scrollIntoView({ behavior: "smooth" });
   }
 
-  const handleScroll = () => {
-    const scrollPosition = window.pageYOffset;
-
-    const mobDescElement = document.getElementById("mobDescElement");
-    const mobDescElementDistanceToTop =
-      window.pageYOffset + mobDescElement.getBoundingClientRect().top;
-    const mobDescElementRelativePostition =
-      mobDescElementDistanceToTop - scrollPosition;
-
-    const webDescElement = document.getElementById("webDescElement");
-    const webDescElementDistanceToTop =
-      window.pageYOffset + webDescElement.getBoundingClientRect().top;
-    const webDescElementRelativePostition =
-      webDescElementDistanceToTop - scrollPosition;
-
-    const cloudDescElement = document.getElementById("cloudDescElement");
-    const cloudDescElementDistanceToTop =
-      window.pageYOffset + cloudDescElement.getBoundingClientRect().top;
-    const cloudDescElementRelativePostition =
-      cloudDescElementDistanceToTop - scrollPosition;
-
-    const automationDescElement = document.getElementById(
-      "automationDescElement"
-    );
-    const automationDescElementDistanceToTop =
-      window.pageYOffset + automationDescElement.getBoundingClientRect().top;
-    const automationDescElementRelativePostition =
-      automationDescElementDistanceToTop - scrollPosition;
-
-    dispatch(
-      position([
-        mobDescElementRelativePostition,
-        webDescElementRelativePostition,
-        cloudDescElementRelativePostition,
-        automationDescElementRelativePostition,
-      ])
-    );
-
-    if (scrollPosition <= 0) {
-      dispatch(sliderTransition(previousMobileValue));
-    } else {
-      dispatch(sliderTransition(6));
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
-
   return (
     <div className="App">
-      <Homescreen
-        scrollDownToOverview={scrollDownToOverview}
-        scrollDownToContactMe={scrollDownToContactMe}
-      />
-      <ScrollingView titleRef={titleRef} />
-      <ContactMe contactMeRef={contactMeRef} />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <NavigationBanner scrollDownToContactMe={scrollDownToContactMe} />
+            }
+          >
+            <Route index element={<Homescreen contactMeRef={contactMeRef} />} />
+            <Route path="/blogs" element={<Outlet />}>
+              <Route index element={<Blogs />} />
+              <Route path=":postId" element={<BlogPost />} />
+            </Route>
+            <Route path="*" element={<ErrorPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export default function HomescreenBio({ isMobile }) {
+export default function TitlescreenBio({ isMobile }) {
   const opacityArray = useSelector((state) =>
     isMobile ? state.opacity.mobileValues : state.opacity.value
   );

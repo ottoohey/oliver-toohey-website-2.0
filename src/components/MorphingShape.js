@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import { useSpring, animated } from "@react-spring/web";
 
 export default function MorphingShape() {
-  const fixedPosition = useSelector((state) => state.homescreen.value);
+  const fixedPosition = useSelector((state) => state.Homescreen.value);
   const paddingEnabled = useSelector(
-    (state) => state.homescreen.paddingEnabled
+    (state) => state.Homescreen.paddingEnabled
   );
 
   const morphShape = (stackIndex) => {

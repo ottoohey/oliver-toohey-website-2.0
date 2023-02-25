@@ -6,7 +6,7 @@ import {
 } from "../features/opacity/opacitySlice.js";
 import ReactSlider from "react-slider";
 
-export default function HomescreenBlobs({ isMobile }) {
+export default function TitlescreenBlobs({ isMobile }) {
   const opacityArray = useSelector((state) =>
     isMobile ? state.opacity.mobileValues : state.opacity.value
   );
