@@ -1,11 +1,11 @@
 import "./App.css";
 import React, { useRef } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import Homescreen from "./components/Homescreen";
-import Blogs from "./components/Blogs";
-import ErrorPage from "./components/ErrorPage";
-import NavigationBanner from "./components/NavigationBanner";
-import BlogPost from "./components/BlogPost";
+import Homescreen from "./components/Home/Homescreen";
+import Blogs from "./components/Blogs/Blogs";
+import ErrorPage from "./components/Navigation/ErrorPage";
+import NavigationBanner from "./components/Navigation/NavigationBanner";
+import BlogPost from "./components/Blogs/BlogPost";
 
 function App() {
   const contactMeRef = useRef();

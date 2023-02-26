@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   transition,
   sliderTransition,
-} from "../features/opacity/opacitySlice.js";
+} from "../../features/opacity/opacitySlice.js";
 import ReactSlider from "react-slider";
 
 export default function TitlescreenBlobs({ isMobile }) {
