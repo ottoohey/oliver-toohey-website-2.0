@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { position } from "../../features/homescreenAnimation/homescreenAnimationSlice";
-import Titlescreen from "../Home/Titlescreen";
-import ContactMe from "../Home/ContactMe";
-import ScrollingView from "../Home/ScrollingView";
+import Titlescreen from "./Titlescreen";
+import ContactMe from "./ContactMe";
+import ScrollingView from "./ScrollingView";
 import { sliderTransition } from "../../features/opacity/opacitySlice";
 
 export default function Homescreen({ contactMeRef }) {

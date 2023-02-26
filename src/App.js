@@ -1,11 +1,11 @@
 import "./App.css";
 import React, { useRef } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import Homescreen from "./components/Home/Homescreen";
-import Blogs from "./components/Blogs/Blogs";
-import ErrorPage from "./components/Navigation/ErrorPage";
-import NavigationBanner from "./components/Navigation/NavigationBanner";
-import BlogPost from "./components/Blogs/BlogPost";
+import Homescreen from "./components/home/Homescreen";
+import Blogs from "./components/blogs/Blogs";
+import ErrorPage from "./components/navigation/ErrorPage";
+import NavigationBanner from "./components/navigation/NavigationBanner";
+import BlogPost from "./components/blogs/BlogPost";
 
 function App() {
   const contactMeRef = useRef();
@@ -26,7 +26,10 @@ function App() {
             <Route index element={<Homescreen contactMeRef={contactMeRef} />} />
             <Route path="/blogs" element={<Outlet />}>
               <Route index element={<Blogs />} />
-              <Route path=":postId" element={<BlogPost />} />
+              <Route
+                path=":postId"
+                element={<BlogPost contactMeRef={contactMeRef} />}
+              />
             </Route>
             <Route path="*" element={<ErrorPage />} />
           </Route>
