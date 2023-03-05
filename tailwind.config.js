@@ -19,6 +19,8 @@ module.exports = {
       cloudfront: "url('./images/icons/CloudFront.png')",
       route53: "url('./images/icons/Route 53.png')",
       s3: "url('./images/icons/S3.png')",
+      github: "url('./images/logos/github-mark-white.png')",
+      linkedin: "url('./images/logos/LI-In-Bug.png')",
     },
     backgroundSize: {
       small: "35vw",

@@ -23,6 +23,15 @@
     padding: 16px;
 }
 
+.paragraph-heading {
+    color: white;
+    text-align: start;
+    padding: 16px;
+    padding-bottom: 0px;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
 .blog-image {
     padding: 16px;
     display: block;

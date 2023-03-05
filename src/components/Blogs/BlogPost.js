@@ -2,6 +2,7 @@ import "../../Blogs.css";
 import { useParams } from "react-router-dom";
 import ContactMe from "../home/ContactMe";
 import PromptEngineering from "./promptEngineering/PromptEngineering";
+import PerfectPromptRecipe from "./promptEngineering/PerfectPromptRecipe";
 
 export default function BlogPost({ contactMeRef }) {
   let params = useParams();
@@ -12,6 +13,8 @@ export default function BlogPost({ contactMeRef }) {
     switch (postId) {
       case 1:
         return <PromptEngineering />;
+      case 2:
+        return <PerfectPromptRecipe />;
       default:
         return (
           <div className="flex h-screen bg-zinc-800">

@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useRef } from "react";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, HashRouter } from "react-router-dom";
 import Homescreen from "./components/home/Homescreen";
 import Blogs from "./components/blogs/Blogs";
 import ErrorPage from "./components/navigation/ErrorPage";
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route
             path="/"
@@ -34,7 +34,7 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
