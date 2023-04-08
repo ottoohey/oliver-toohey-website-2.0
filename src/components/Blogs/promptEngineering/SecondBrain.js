@@ -16,21 +16,22 @@ export default function SecondBrain() {
         <h1 className="blog-heading">Second Brain</h1>
         <h1 className="blog-subheading">
           How to give ChatGPT access to everything you know… not that it needs
-          to know more.
+          to get any more intelligent.
         </h1>
         <h1 className="blog-metadata">Sun 8 Apr - Blog Post #3</h1>
         <p className="regular-paragraph">
-          Pretty soon after playing around with ChatGPT, you will realise some
-          of the limitations in it's knowledge, being trained on data prior up
-          to 2021. This is gradually changing, with the “New Bing” having access
-          to the internet, however in my experience it is still a bit buggy and
-          doesn't always produce the desired outcome. Although I'm sure it will
-          improve at a rapid rate regardless.
+          ChatGPT has only been trained in data up until 2021 and the
+          limitations in its knowledge is weel documented. This is gradually
+          changing, with new models being trained due to declining costs and
+          LLM's being given the ability to find its own information. The “New
+          Bing” has access to the internet, however in my experience it is still
+          a bit buggy and doesn't always produce the desired outcome. Although
+          I'm sure it will improve at a rapid rate regardless.
         </p>
         <p className="regular-paragraph">
-          However, publicly available information is not always where the
-          answers to a users question is contained. Companies are starting to
-          see the possibilities of implementing LLM's over the top of their own
+          Despite this, giving LLM's access to more publicly available
+          information will not solve all problems. Companies are starting to see
+          the possibilities of implementing LLM's over the top of their own
           data. There are potentially huge benefits in productivity by reducing
           the workload of employees and automating it with AI, as well as simply
           giving AI access to confidential information that they don't want
@@ -235,34 +236,46 @@ export default function SecondBrain() {
         <p className="regular-paragraph text-center">
           <i>Question: Can you tell me a little bit about Oliver?</i>
         </p>
+        <p className="regular-paragraph">
+          Want to see the code? Check out my repo{" "}
+          <a
+            href="https://github.com/ottoohey/second-brain"
+            target="_blank"
+            className="text-yellow-100 hover:underline"
+            rel="noreferrer"
+          >
+            here
+          </a>
+          .
+        </p>
         <p className="paragraph-heading">Next Steps:</p>
         <p className="regular-paragraph">
           At this point, I had a pretty decent, albeit entirely local, POC
           going. However, for it to be of use to anyone aside from myself, there
           are a few things I would need/want to implement:
         </p>
-        <p className="regular-paragraph p-1 pl-8">
-          1. Host Chroma in the cloud. This would allow everyone to query my
-          second brain.
+        <p className="regular-paragraph">
+          <b>Access for everyone!</b> Host Chroma in the cloud. This would allow
+          everyone to query my second brain.
         </p>
-        <p className="regular-paragraph p-1 pl-8">
-          2. Add better tags to the metadata in ChromaDB. Currently, when
-          ChromaDB is queried, it returns a couple of paragraphs based on the
-          relatedness of the query and the content of the paragraph. However, it
-          lacks a bit of context, which would be helpful in summarising data.
-          For example, if a user asks: “Please give me a summary of Oliver's
-          personal projects”, ChromaDB might struggle to return all the relevant
-          information if I have worked on 10+ projects, or if those paragraphs
-          don't contain “personal projects” and therefore aren't return to
-          ChatGPT to derive an answer from. By adding tags to files and passing
-          an entire document to ChatGPT for summarisation purposes would be
-          cool.
+        <p className="regular-paragraph">
+          <b>A more dynamic vector database.</b> Add better tags to the metadata
+          in ChromaDB. Currently, when ChromaDB is queried, it returns a couple
+          of paragraphs based on the relatedness of the query and the content of
+          the paragraph. However, it lacks a bit of context, which would be
+          helpful in summarising data. For example, if a user asks: “Please give
+          me a summary of Oliver's personal projects”, ChromaDB might struggle
+          to return all the relevant information if I have worked on 10+
+          projects, or if those paragraphs don't contain “personal projects” and
+          therefore aren't return to ChatGPT to derive an answer from. By adding
+          tags to files and passing an entire document to ChatGPT for
+          summarisation purposes would be cool.
         </p>
-        <p className="regular-paragraph p-1 pl-8">
-          3. Finally, giving ChatGPT a “memory”, so users can have conversations
-          instead of posing standalone questions. This is one of the features of
-          ChatGPT which has made it so incredible to work with and would provide
-          a much better user experience overall.
+        <p className="regular-paragraph">
+          <b>Coversational Intelligence.</b> Giving ChatGPT a “memory”, so users
+          can have conversations instead of posing standalone questions. This is
+          one of the features of ChatGPT which has made it so incredible to work
+          with and would provide a much better user experience overall.
         </p>
         <p className="regular-paragraph">
           Whether I get around to implementing these next steps is another
