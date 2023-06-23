@@ -13,6 +13,9 @@ export default function NavigationBanner({ scrollDownToContactMe }) {
             <button className="uppercase text-xs text-yellow-100 hover:font-bold">
               <Link to="/">home</Link>
             </button>
+            {/* <button className="uppercase text-xs text-yellow-100 hover:font-bold">
+              <Link to="/apps">apps</Link>
+            </button> */}
             <button className="uppercase text-xs text-yellow-100 hover:font-bold">
               <Link to="/blogs">blogs</Link>
             </button>

@@ -9,10 +9,10 @@ export default function ContactMe({ contactMeRef }) {
       </p>
       <div className="grid grid-cols-1 gap-2">
         <a
-          href="mailto: oli@olivertoohey.com"
+          href="mailto: hello@olivertoohey.com"
           className="text-white p-4 font-bold hover:text-yellow-100"
         >
-          oli@olivertoohey.com
+          hello@olivertoohey.com
         </a>
         <div>
           {/* <img src={github} alt="GitHub Logo" className="logo" /> */}

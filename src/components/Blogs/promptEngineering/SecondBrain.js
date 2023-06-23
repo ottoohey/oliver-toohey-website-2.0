@@ -18,10 +18,10 @@ export default function SecondBrain() {
           How to give ChatGPT access to everything you know… not that it needs
           to get any more intelligent.
         </h1>
-        <h1 className="blog-metadata">Sun 8 Apr - Blog Post #3</h1>
+        <h1 className="blog-metadata">Sun 9 Apr - Blog Post #3</h1>
         <p className="regular-paragraph">
           ChatGPT has only been trained in data up until 2021 and the
-          limitations in its knowledge is weel documented. This is gradually
+          limitations in its knowledge is well documented. This is gradually
           changing, with new models being trained due to declining costs and
           LLM's being given the ability to find its own information. The “New
           Bing” has access to the internet, however in my experience it is still
@@ -175,11 +175,13 @@ export default function SecondBrain() {
           <b>#second-brain.</b>
         </p>
         <img src={tag} alt="Tag" className="blog-image" />
+        <br></br>
         <p className="regular-paragraph p-1 pl-8">
           2. Developer enters their OpenAI API Key via an action in the Obsidian
           command pallet.
         </p>
         <img src={apiKeyModal} alt="API Key Modal" className="blog-image" />
+        <br></br>
         <p className="regular-paragraph p-1 pl-8">
           3. Developer loads their data into ChromaDB. The logic behind this is
           to go through each file in the Obsidian Vault, pulling out the ones
@@ -192,6 +194,7 @@ export default function SecondBrain() {
           alt="Create Database"
           className="blog-image"
         />
+        <br></br>
         <p className="regular-paragraph p-1 pl-8">
           4. User queries the second brain by entering their question via
           another action in the Obsidian command pallet. In the background,
@@ -204,6 +207,7 @@ export default function SecondBrain() {
           alt="Enter a Query"
           className="blog-image"
         />
+        <br></br>
         <p className="regular-paragraph p-1 pl-8">
           5. ChatGPT is given the same question, along with the paragraphs
           passed back by ChromaDB. It is also given a prompt which outlines what
@@ -212,29 +216,31 @@ export default function SecondBrain() {
           ChatGPT has been trained on.
         </p>
         <img src={queryDocker} alt="Docker Query" className="blog-image" />
+        <br></br>
         <p className="regular-paragraph p-1 pl-8">
           6. Once ChatGPT has generated a response, present the information to
           the user in the form of a Modal.
         </p>
-        <p className="regular-paragraph">
-          Based on the responses there are some things to fix, such as getting
-          answers in a mix of first and third person, as well as maybe having
-          the need to adjust the content returned from Chroma based on the
-          question.
-        </p>
-        <img src={response1} alt="Example Response 1" className="blog-image" />
-        <p className="regular-paragraph text-center">
+        <p className="regular-paragraph text-center p-1">
           <i>Question: What does Oliver know about AI?</i>
         </p>
-        <img src={response2} alt="Example Response 2" className="blog-image" />
-        <p className="regular-paragraph text-center">
+        <img src={response1} alt="Example Response 1" className="blog-image" />
+        <br></br>
+        <p className="regular-paragraph text-center p-1">
           <i>
             Question: What software development projects has Oliver worked on?
           </i>
         </p>
-        <img src={response3} alt="Example Response 3" className="blog-image" />
-        <p className="regular-paragraph text-center">
+        <img src={response2} alt="Example Response 2" className="blog-image" />
+        <br></br>
+        <p className="regular-paragraph text-center p-1">
           <i>Question: Can you tell me a little bit about Oliver?</i>
+        </p>
+        <img src={response3} alt="Example Response 3" className="blog-image" />
+        <p className="regular-paragraph">
+          These responses aren't perfect, they switch between first and third
+          person, but this is a matter of fine tuning the prompt I pass ChatGPT
+          which instructs it how to answer questions.
         </p>
         <p className="regular-paragraph">
           Want to see the code? Check out my repo{" "}
