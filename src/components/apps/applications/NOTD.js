@@ -1,7 +1,7 @@
 import goodPrompt from "../../../images/blogs/perfectPromptRecipe/good-prompt.png";
 import badPrompt from "../../../images/blogs/perfectPromptRecipe/bad-prompt.png";
 
-export default function NewsOfTheDai() {
+export default function NOTD() {
   return (
     <div className="flex bg-zinc-800">
       <div className="pb-16 mx-auto container pt-3 px-6 max-w-screen-md">

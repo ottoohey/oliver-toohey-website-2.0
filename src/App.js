@@ -8,7 +8,7 @@ import ErrorPage from "./components/navigation/ErrorPage";
 import NavigationBanner from "./components/navigation/NavigationBanner";
 import BlogPost from "./components/blogs/BlogPost";
 import AppDetails from "./components/apps/AppDetails";
-import NewsOfTheDaiSupport from "./components/apps/applications/NOTDSupport";
+import NOTDSupport from "./components/apps/applications/NOTDSupport";
 
 function App() {
   const contactMeRef = useRef();
@@ -43,7 +43,7 @@ function App() {
             </Route>
             <Route
               path="/notd-support"
-              element={<NewsOfTheDaiSupport contactMeRef={contactMeRef} />}
+              element={<NOTDSupport contactMeRef={contactMeRef} />}
             ></Route>
             <Route path="*" element={<ErrorPage />} />
           </Route>

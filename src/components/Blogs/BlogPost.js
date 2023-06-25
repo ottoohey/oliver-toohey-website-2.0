@@ -4,6 +4,7 @@ import ContactMe from "../home/ContactMe";
 import PromptEngineering from "./promptEngineering/PromptEngineering";
 import PerfectPromptRecipe from "./promptEngineering/PerfectPromptRecipe";
 import SecondBrain from "./promptEngineering/SecondBrain";
+import NewsOfTheDai from "./promptEngineering/NewsOfTheDai";
 
 export default function BlogPost({ contactMeRef }) {
   let params = useParams();
@@ -18,6 +19,8 @@ export default function BlogPost({ contactMeRef }) {
         return <PerfectPromptRecipe />;
       case 3:
         return <SecondBrain />;
+      case 4:
+        return <NewsOfTheDai />;
       default:
         return (
           <div className="flex h-screen bg-zinc-800">

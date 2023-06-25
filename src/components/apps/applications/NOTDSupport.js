@@ -1,6 +1,6 @@
 import ContactMe from "./../../home/ContactMe";
 
-export default function NewsOfTheDaiSupport({ contactMeRef }) {
+export default function NOTDSupport({ contactMeRef }) {
   return (
     <>
       <div className="flex bg-zinc-800">

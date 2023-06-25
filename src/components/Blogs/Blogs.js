@@ -8,11 +8,17 @@ export default function Blogs() {
         <button className="text-yellow-100 p-4 text-2xl hover:font-bold">
           <Link to="/blogs/1">Blog #1 - Prompt Engineering</Link>
         </button>
+        <br></br>
         <button className="text-yellow-100 p-4 text-2xl hover:font-bold">
           <Link to="/blogs/2">Blog #2 - A Recipe for The Perfect Prompt</Link>
         </button>
+        <br></br>
         <button className="text-yellow-100 p-4 text-2xl hover:font-bold">
           <Link to="/blogs/3">Blog #3 - Second Brain</Link>
+        </button>
+        <br></br>
+        <button className="text-yellow-100 p-4 text-2xl hover:font-bold">
+          <Link to="/blogs/4">Blog #4 - News Of The Dai</Link>
         </button>
       </div>
     </div>

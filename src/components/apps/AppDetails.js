@@ -1,7 +1,7 @@
 import "../../Blogs.css";
 import { useParams } from "react-router-dom";
 import ContactMe from "../home/ContactMe";
-import NewsOfTheDai from "./applications/NewsOfTheDai";
+import NOTD from "./applications/NOTD";
 
 export default function BlogPost({ contactMeRef }) {
   let params = useParams();
@@ -11,7 +11,7 @@ export default function BlogPost({ contactMeRef }) {
     const appId = props.appId;
     switch (appId) {
       case 1:
-        return <NewsOfTheDai />;
+        return <NOTD />;
       //   case 2:
       //     return <PerfectPromptRecipe />;
       //   case 3:
